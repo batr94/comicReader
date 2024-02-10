@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import PageView from './PageView';
-import PageNavigation from './PageNavigation';
+import PageView from './components/PageView';
+import PageNavigation from './components/PageNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPageList, setChapterList, setCurrentChapter } from './store/pageInfoSlice';
 import chapters from './data';

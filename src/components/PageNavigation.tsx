@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { nextPage, previousPage, setPage } from './store/pageInfoSlice';
-import { RootState } from './store';
+import { nextPage, previousPage, setPage } from '../store/pageInfoSlice';
+import { RootState } from '../store';
 
 
 const PageNavigation = () => {

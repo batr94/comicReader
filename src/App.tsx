@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
+import Layout from './components/layouts/Layout';
 import PageView from './components/PageView';
 import PageNavigation from './components/PageNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPageList, setChapterList, setCurrentChapter } from './store/pageInfoSlice';
 import chapters from './data';
-import './App.css'
 import { RootState } from './store';
 
 function App() {
@@ -20,16 +20,14 @@ function App() {
     dispatch(setPageList(currentChapter?.pages ?? []));
   }, [currentChapter]);
 
-  function changeChapter(event: any) {
-    dispatch(setCurrentChapter(
-      chapterList.find(
-        (chapter) => chapter.id === parseInt(event.target.value)
-      )
-    ));
-  }
+function changeChapter(event: any) {
+  const selectedChapterId = parseInt(event.target.value);
+  const selectedChapter = chapterList.find((chapter) => chapter.id === selectedChapterId);
+  dispatch(setCurrentChapter(selectedChapter));
+}
 
   return (
-    <>
+    <Layout>
       <PageView />
       <div>
         <PageNavigation />
@@ -42,7 +40,7 @@ function App() {
           </select>
         </p>
       </div>
-    </>
+    </Layout>
   )
 }
 

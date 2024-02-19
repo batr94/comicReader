@@ -1,46 +1,36 @@
-import { useEffect } from 'react'
-import clsx from 'clsx';
+import { ReactNode } from "react";
+import clsx from "clsx";
+import useBackdrop from "./useBackdrop";
 import './Backdrop.css';
 
 type BackdropProps = {
-  children?: React.ReactNode,
-  onClick?: () => void,
-  open?: boolean,
-  blockScroll?: boolean,
-  className?: string,
-}
+  children?: ReactNode;
+  onClick?: () => void;
+  isOpen: boolean;
+  blockScroll?: boolean;
+  className?: string;
+};
 
-const Backdrop = ({ children, ...props }: BackdropProps) => {
-  const {
-    onClick,
-    className,
-    open,
-    blockScroll,
-  } = props;
-
-  useEffect(() => {
-    const isScrollBlocked = open && blockScroll;
-    document.body.style.overflow = isScrollBlocked ? 'hidden' : 'visible';
-
-    return () => {
-      document.body.style.overflow = 'visible';
-    }
-  }, [blockScroll, open])
-
+const Backdrop = ({
+  children,
+  onClick,
+  isOpen,
+  blockScroll = true,
+  className,
+}: BackdropProps) => {
   const classes = clsx(
-    'backdrop',
-    open && 'backdrop_opened',
-    className
+    "backdrop",
+    className,
+    isOpen && "backdrop_opened",
   );
 
+  useBackdrop(isOpen, blockScroll);
+
   return (
-    <div
-      onClick={onClick}
-      className={classes}
-    >
+    <div onClick={onClick} className={classes}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Backdrop
+export default Backdrop;

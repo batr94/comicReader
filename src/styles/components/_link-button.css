@@ -1,0 +1,14 @@
+.link-button {
+  min-width: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+  transition-property: background-color, color;
+}
+
+.link-button:hover {
+  background-color: rgba(255, 255, 255, .1);
+  color: #fff;
+}

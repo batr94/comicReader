@@ -26,6 +26,9 @@ const pageSlice = createSlice({
     setPageList(state, action) {
       const newState: SliceStateType = {
         ...state,
+        currentPage: 0,
+        isFirstPage: true,
+        isLastPage: action.payload.length === 0,
         pageList: action.payload
       }
       return calculatePageInfo(0, newState);

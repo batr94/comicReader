@@ -1,11 +1,9 @@
 import { useState, memo } from 'react'
 
 const Page = ({ src = '', show = false }: { src?: string, show?: boolean}) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  console.log(src);
+  const [isLoaded, setIsLoaded] = useState(false);;
 
   function onImageLoad () {
-    // console.log('loaded', src)
     setIsLoaded(true);
   }
 

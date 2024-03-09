@@ -1,31 +1,31 @@
 import React from "react";
-import { createPortal } from 'react-dom';
-import SidebarContext from "./Sidebar.context";
-import SidebarOverlay from "./SidebarOverlay";
-import SidebarContent from "./SidebarContent";
+import * as Dialog from "@radix-ui/react-dialog";
+import './Sidebar.css';
+import clsx from 'clsx';
 
 type SidebarProps = {
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
+  side?: "left" | "right";
 };
 
-function Sidebar({ children, isOpen, onClose }: SidebarProps) {
-  const contextValue = {
-    isOpen,
-    onClose,
-  };
+function Sidebar({ children, isOpen, onClose, side = "left" }: SidebarProps) {
+  const contentClasses = clsx(
+    "sidebar-content",
+    side === "left" ? "sidebar-content_side-left" : "sidebar-content_side-right"
+  )
 
   return (
-    <SidebarContext.Provider value={contextValue}>
-      {
-        createPortal(children, document.body)
-      }
-    </SidebarContext.Provider>
+    <Dialog.Root open={isOpen} onOpenChange={onClose}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="sidebar-overlay" />
+        <Dialog.Content className={contentClasses}>
+          {children}
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
-
-Sidebar.Overlay = SidebarOverlay;
-Sidebar.Content = SidebarContent;
 
 export default Sidebar;

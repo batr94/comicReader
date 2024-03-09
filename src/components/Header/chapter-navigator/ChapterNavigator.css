@@ -1,0 +1,11 @@
+.chapter-navigator {
+  display: flex;
+  font-size: 13px;
+}
+
+.chapter-navigator__select {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  line-height: 18px;
+}

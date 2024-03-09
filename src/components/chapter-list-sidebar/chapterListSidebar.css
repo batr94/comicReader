@@ -1,0 +1,28 @@
+.chapter-list {
+  padding: 0 10px 15px;
+}
+
+.chapter-list__item {
+  padding: 0 14px;
+  margin-bottom: 1px;
+  border-radius: 3px;
+  transition: .2s;
+  transition-property: background-color, color;
+}
+
+.chapter-list__item:nth-child(2n) {
+  background-color: rgba(120,120,120,.03);
+}
+
+.chapter-list__item:hover,
+.chapter-list__item.chapter-list__item_active {
+  background-color: rgba(255, 255, 255, .15);
+  color: white;
+}
+
+.chapter-list__link {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 35px;
+}

@@ -1,14 +1,15 @@
-import Page from './Page';
+import Page from '../Page';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import usePagesToLoad from '../hooks/usePagesToLoad';
+import { RootState } from '../../store';
+import usePagesToLoad from '../../hooks/usePagesToLoad';
+import './PageView.css';
 
 export default function PageView() {
   const { currentPage, pageList: pages } = useSelector((state: RootState) => state.pageInfo);
   const { isPageShouldToBeLoad } = usePagesToLoad(currentPage, pages);
 
   return (
-    <div>
+    <div className='page-view'>
       { 
         pages.map((link, index) => (
           <Page

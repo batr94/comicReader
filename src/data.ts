@@ -1,6 +1,9 @@
-import { ChapterType } from './types/chapterType';
+export type ChapterType = {
+  id: number;
+  name: string;
+}
 
-export const newChapters = [
+export const newChapters: ChapterType[] = [
   {
     id: 1,
     name: 'The Amazing Spider-Man (2022) #34',
@@ -12,7 +15,7 @@ export const newChapters = [
   {
     id: 3,
     name: 'The Amazing Spider-Man (2022) #36',
-  }
+  },
 ];
 
 export const pagesList = [
@@ -171,6 +174,6 @@ const chapters = [
       'https://readcomicsonline.ru/uploads/manga/the-amazing-spiderman-2022/chapters/35/25.jpeg',
     ],
   },
-] as ChapterType[];
+];
 
 export default chapters;

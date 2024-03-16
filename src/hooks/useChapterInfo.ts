@@ -23,7 +23,7 @@ function useChapterInfo() {
     dispatch(setReduxChapterList(chapterList));
   }
 
-  function setChapter(chapter: any) {
+  function setChapter(chapter: number) {
     dispatch(reduxSetChapter(chapter));
   }
 

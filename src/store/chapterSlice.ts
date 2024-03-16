@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { startListening } from './middlewares/listenerMiddleware';
 import { setPageList } from './pageInfoSlice';
-import { pagesList } from '../data';
+import { pagesList , ChapterType } from '../data';
 
 
 startListening({
@@ -15,11 +15,6 @@ startListening({
     listenerApi.dispatch(setPageList(newPagesList));
   }
 });
-
-type ChapterType = {
-  id: number;
-  name: string;
-};
 
 type SliceStateType = {
   chapterList: ChapterType[];
@@ -39,12 +34,8 @@ const chapterSlice = createSlice({
   name: "chapter",
   initialState,
   reducers: {
-    setChapterList(state, action) {
-      state.chapterList = action.payload;
-    },
-    setChapter(state, action) {
-      return calculateChapterInfo(action.payload, state);
-    },
+    setChapterList: setChapterListReducer,
+    setChapter: setChapterReducer,
     nextChapter(state) {
       return calculateChapterInfo(state.currentChapterIndex + 1, state);
     },
@@ -53,6 +44,20 @@ const chapterSlice = createSlice({
     },
   },
 });
+
+function setChapterListReducer(
+  state: SliceStateType,
+  action: PayloadAction<ChapterType[]>
+) {
+  state.chapterList = action.payload;
+}
+
+function setChapterReducer(
+  state: SliceStateType,
+  action: PayloadAction<number>
+) {
+  return calculateChapterInfo(action.payload, state);
+}
 
 function isChapterExist(chapterIndex: number, chaptersCount: number) {
   return chapterIndex >= 0 && chapterIndex < chaptersCount;

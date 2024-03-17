@@ -1,8 +1,19 @@
+.chapter-list-sidebar {
+  max-width: 480px;
+}
+
+.chapter-list-title {
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 14px 20px;
+}
+
 .chapter-list {
   padding: 0 10px 15px;
 }
 
 .chapter-list__item {
+  cursor: pointer;
   padding: 0 14px;
   margin-bottom: 1px;
   border-radius: 3px;

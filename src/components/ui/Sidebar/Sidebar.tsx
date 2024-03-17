@@ -8,12 +8,14 @@ type SidebarProps = {
   isOpen: boolean;
   onClose: () => void;
   side?: "left" | "right";
+  className?: string
 };
 
-function Sidebar({ children, isOpen, onClose, side = "left" }: SidebarProps) {
+function Sidebar({ children, isOpen, onClose, className, side = "left" }: SidebarProps) {
   const contentClasses = clsx(
     "sidebar-content",
-    side === "left" ? "sidebar-content_side-left" : "sidebar-content_side-right"
+    side === "left" ? "sidebar-content_side-left" : "sidebar-content_side-right",
+    className,
   )
 
   return (

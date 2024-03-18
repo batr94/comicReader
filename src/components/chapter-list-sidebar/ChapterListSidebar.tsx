@@ -9,7 +9,8 @@ const ChapterListSidebar = () => {
   const { isOpen, closeSidebar } = useChapterListSidebar();
 
   return (
-    <Sidebar isOpen={isOpen} onClose={closeSidebar} side="right">
+    <Sidebar isOpen={isOpen} onClose={closeSidebar} side="right" className='chapter-list-sidebar'>
+      <h1 className='chapter-list-title'>Table Of Contents</h1>
       <ul className='chapter-list'>
         { chapterList.map((chapter, index) => (
           <li

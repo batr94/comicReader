@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import Layout from './components/Layout/Layout.tsx';
 import PageView from './components/PageView/PageView';
-import PageNavigation from './components/PageNavigation';
+// import PageNavigation from './components/PageNavigation';
 import Menu from './components/Menu';
+import PageNavigation from './components/page-navigation';
 import ChapterListSidebar from './components/chapter-list-sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPageList, setChapterList, setCurrentChapter } from './store/pageInfoSlice';
@@ -35,7 +36,8 @@ function App() {
   return (
     <Layout>
       <PageView />
-      <div>
+      <PageNavigation />
+      {/* <div>
         <PageNavigation />
         <p>
           <label>Глава: </label>
@@ -45,7 +47,7 @@ function App() {
             ))}
           </select>
         </p>
-      </div>
+      </div> */}
       <Menu isOpen={isMenuOpen} />
       <ChapterListSidebar />
     </Layout>

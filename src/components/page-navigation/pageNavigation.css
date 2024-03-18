@@ -1,0 +1,32 @@
+.page-navigation {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  padding: 10px 15px;
+}
+
+.page-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #363738;
+  border-radius: 4px;
+  height: 35px;
+  padding: 0 10px;
+}
+
+.page-list__label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.page-list__select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  width: 100%;
+}

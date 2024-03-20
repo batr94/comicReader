@@ -1,20 +1,28 @@
 export type ChapterType = {
   id: number;
   name: string;
+  previousChapterId: number | null;
+  nextChapterId: number | null;
 }
 
 export const newChapters: ChapterType[] = [
   {
     id: 1,
     name: 'The Amazing Spider-Man (2022) #34',
+    previousChapterId: null,
+    nextChapterId: 2,
   },
   {
     id: 2,
     name: 'The Amazing Spider-Man (2022) #35',
+    previousChapterId: 1,
+    nextChapterId: 3,
   },
   {
     id: 3,
     name: 'The Amazing Spider-Man (2022) #36',
+    previousChapterId: 2,
+    nextChapterId: null,
   },
 ];
 

@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ChapterType } from '../types/chapterType';
 
 type SliceStateType = {
-  chapterList: ChapterType[],
-  currentChapter: ChapterType | null, 
   currentPage: number;
   pageList: string[];
   isFirstPage: boolean;
@@ -11,8 +8,6 @@ type SliceStateType = {
 }
 
 const initialState: SliceStateType = {
-  chapterList: [],
-  currentChapter: null,
   currentPage: 0,
   pageList: [],
   isFirstPage: true,
@@ -42,12 +37,6 @@ const pageSlice = createSlice({
     setPage(state, action) {
       return calculatePageInfo(action.payload, state);
     },
-    setChapterList(state, action) {
-      state.chapterList = action.payload;
-    },
-    setCurrentChapter(state, action) {
-      state.currentChapter = action.payload;
-    }
   }
 });
 
@@ -74,8 +63,6 @@ export const {
   nextPage,
   previousPage,
   setPage,
-  setChapterList,
-  setCurrentChapter,
 } = pageSlice.actions;
 
 export default pageSlice.reducer;

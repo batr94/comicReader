@@ -6,26 +6,34 @@ import { pagesList , ChapterType } from '../data';
 
 startListening({
   predicate: (action, currentState, previousState) => {
-    return currentState.chapterInfo.currentChapterIndex !== previousState.chapterInfo.currentChapterIndex
+    return currentState.chapterInfo.currentChapter?.id !== previousState.chapterInfo.currentChapter?.id
   },
   effect: (action, listenerApi) => {
-    const { currentChapterIndex, chapterList } = listenerApi.getState().chapterInfo;
-    const currentChapter = chapterList[currentChapterIndex];
+    const { currentChapter } = listenerApi.getState().chapterInfo;
+
+    if (currentChapter === null) {
+      return;
+    }
+
     const newPagesList = pagesList.find((page) => page.chapterId === currentChapter.id)?.pages ?? [];
     listenerApi.dispatch(setPageList(newPagesList));
   }
 });
 
+interface ChapterList {
+  [key: ChapterType['id']]: ChapterType
+}
+
 type SliceStateType = {
-  chapterList: ChapterType[];
-  currentChapterIndex: number;
+  chapterList: ChapterList;
+  currentChapter: ChapterType | null;
   isFirstChapter: boolean;
   isLastChapter: boolean;
 };
 
 const initialState: SliceStateType = {
-  chapterList: [],
-  currentChapterIndex: 0,
+  chapterList: {},
+  currentChapter: null,
   isFirstChapter: false,
   isLastChapter: false,
 };
@@ -37,10 +45,18 @@ const chapterSlice = createSlice({
     setChapterList: setChapterListReducer,
     setChapter: setChapterReducer,
     nextChapter(state) {
-      return calculateChapterInfo(state.currentChapterIndex + 1, state);
+      if (state.currentChapter === null) {
+        return state;
+      }
+
+      return calculateChapterInfo(state.currentChapter.nextChapterId, state);
     },
     previousChapter(state) {
-      return calculateChapterInfo(state.currentChapterIndex - 1, state);
+      if (state.currentChapter === null) {
+        return state;
+      }
+
+      return calculateChapterInfo(state.currentChapter.previousChapterId, state);
     },
   },
 });
@@ -49,7 +65,8 @@ function setChapterListReducer(
   state: SliceStateType,
   action: PayloadAction<ChapterType[]>
 ) {
-  state.chapterList = action.payload;
+  const { payload: chapterList } = action;
+  state.chapterList = chapterList.reduce((chapterList, chapter) => ({ ...chapterList, [chapter.id]: chapter }), {});
 }
 
 function setChapterReducer(
@@ -59,25 +76,21 @@ function setChapterReducer(
   return calculateChapterInfo(action.payload, state);
 }
 
-function isChapterExist(chapterIndex: number, chaptersCount: number) {
-  return chapterIndex >= 0 && chapterIndex < chaptersCount;
-}
-
 function calculateChapterInfo(
-  chapterIndex: number,
+  chapterId: number | null | undefined,
   state: SliceStateType
 ): SliceStateType {
-  const chaptersCount = state.chapterList.length;
-
-  if (isChapterExist(chapterIndex, chaptersCount) === false) {
+  if (chapterId === null || chapterId === undefined) {
     return state;
   }
 
+  const currentChapter = state.chapterList[chapterId];
+
   return {
     ...state,
-    currentChapterIndex: chapterIndex,
-    isFirstChapter: chapterIndex === 0,
-    isLastChapter: chapterIndex === chaptersCount - 1,
+    currentChapter: currentChapter ?? null,
+    isFirstChapter: currentChapter?.previousChapterId === null,
+    isLastChapter: currentChapter?.nextChapterId === null,
   };
 }
 

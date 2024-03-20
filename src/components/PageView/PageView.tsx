@@ -7,6 +7,7 @@ import './PageView.css';
 export default function PageView() {
   const { currentPage, pageList: pages } = useSelector((state: RootState) => state.pageInfo);
   const { isPageShouldToBeLoad } = usePagesToLoad(currentPage, pages);
+  console.log(pages, currentPage)
 
   return (
     <div className='page-view'>

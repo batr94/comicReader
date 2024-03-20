@@ -12,14 +12,14 @@ const ChapterListSidebar = () => {
     <Sidebar isOpen={isOpen} onClose={closeSidebar} side="right" className='chapter-list-sidebar'>
       <h1 className='chapter-list-title'>Table Of Contents</h1>
       <ul className='chapter-list'>
-        { chapterList.map((chapter, index) => (
+        { Object.entries(chapterList).map(([, chapter]) => (
           <li
             key={chapter.id}
             className={clsx({
               'chapter-list__item': true,
-              'chapter-list__item_active': currentChapter.id === chapter.id
+              'chapter-list__item_active': currentChapter === chapter
             })}
-            onClick={() => setChapter(index)}
+            onClick={() => setChapter(chapter.id)}
           >
             <a  className='chapter-list__link'>{chapter.name}</a>
           </li>

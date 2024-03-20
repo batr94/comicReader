@@ -5,33 +5,22 @@ import PageView from './components/PageView/PageView';
 import Menu from './components/Menu';
 import PageNavigation from './components/page-navigation';
 import ChapterListSidebar from './components/chapter-list-sidebar';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPageList, setChapterList, setCurrentChapter } from './store/pageInfoSlice';
-import chapters, { newChapters } from './data';
+import { useSelector } from 'react-redux';
+import { newChapters } from './data';
 import { RootState } from './store';
 import useChapterInfo from './hooks/useChapterInfo';
 
 function App() {
-  const dispatch = useDispatch();
-  const { currentChapter, chapterList } = useSelector((state: RootState) => state.pageInfo);
   const { isOpen: isMenuOpen } = useSelector((state: RootState) => state.menu);
-  const { setChapterList: setHookChapterList } = useChapterInfo();
+  const { 
+    setChapterList: setHookChapterList,
+    setChapter,
+  } = useChapterInfo();
 
   useEffect(() => {
     setHookChapterList(newChapters);
-    dispatch(setChapterList(chapters));
-    dispatch(setCurrentChapter(chapters[0]));
+    setChapter(1);
   }, [])
-
-  useEffect(() => {
-    dispatch(setPageList(currentChapter?.pages ?? []));
-  }, [currentChapter]);
-
-  function changeChapter(event: any) {
-    const selectedChapterId = parseInt(event.target.value);
-    const selectedChapter = chapterList.find((chapter) => chapter.id === selectedChapterId);
-    dispatch(setCurrentChapter(selectedChapter));
-  }
 
   return (
     <Layout>

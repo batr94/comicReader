@@ -5,11 +5,12 @@ import {
   previousChapter as reduxPreviousChapter,
   setChapter as reduxSetChapter,
 } from '../store/chapterSlice';
+import { ChapterType } from '../data';
 import { RootState } from '../store';
 
 function useChapterInfo() {
   const dispatch = useDispatch();
-  const { currentChapterIndex, chapterList } = useSelector((state: RootState) => state.chapterInfo);
+  const { currentChapter, chapterList } = useSelector((state: RootState) => state.chapterInfo);
 
   function nextChapter() {
     dispatch(reduxNextChapter());
@@ -19,7 +20,7 @@ function useChapterInfo() {
     dispatch(reduxPreviousChapter());
   }
 
-  function setChapterList(chapterList: any[]) {
+  function setChapterList(chapterList: ChapterType[]) {
     dispatch(setReduxChapterList(chapterList));
   }
 
@@ -32,8 +33,7 @@ function useChapterInfo() {
     previousChapter,
     setChapterList,
     setChapter,
-    currentChapter: chapterList[currentChapterIndex],
-    currentChapterIndex,
+    currentChapter: currentChapter,
     chapterList,
   };
 }

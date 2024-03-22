@@ -1,12 +1,15 @@
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import Sidebar from '../ui/Sidebar';
 import useChapterInfo from '../../hooks/useChapterInfo';
 import { useChapterListSidebar } from '.';
 import './ChapterListSidebar.css';
 
 const ChapterListSidebar = () => {
+  const { isOpen } = useSelector((state: RootState) => state.chapterListSidebar);
+  const { closeSidebar } = useChapterListSidebar();
   const { chapterList, currentChapter, setChapter } = useChapterInfo();
-  const { isOpen, closeSidebar } = useChapterListSidebar();
 
   return (
     <Sidebar isOpen={isOpen} onClose={closeSidebar} side="right" className='chapter-list-sidebar'>

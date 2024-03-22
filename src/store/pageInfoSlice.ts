@@ -21,9 +21,6 @@ const pageSlice = createSlice({
     setPageList(state, action) {
       const newState: SliceStateType = {
         ...state,
-        currentPage: 0,
-        isFirstPage: true,
-        isLastPage: action.payload.length === 0,
         pageList: action.payload
       }
       return calculatePageInfo(0, newState);
@@ -40,13 +37,8 @@ const pageSlice = createSlice({
   }
 });
 
-function isPageExist(page: number, pagesCount: number): boolean {
-  return page >= 0 && page < pagesCount;
-}
-
 function calculatePageInfo(page: number, state: SliceStateType) {
-  const pagesCount = state.pageList.length;
-  if (isPageExist(page, pagesCount) === false) {
+  if (!state.pageList[page]) {
     return state;
   }
 
@@ -54,7 +46,7 @@ function calculatePageInfo(page: number, state: SliceStateType) {
     ...state,
     currentPage: page,
     isFirstPage: page === 0,
-    isLastPage: page === pagesCount - 1,
+    isLastPage: page === state.pageList.length - 1,
   }
 }
 

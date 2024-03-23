@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { 
   setChapterList as setReduxChapterList,
   nextChapter as reduxNextChapter,
@@ -6,11 +6,9 @@ import {
   setChapter as reduxSetChapter,
 } from '../store/chapterSlice';
 import { ChapterType } from '../data';
-import { RootState } from '../store';
 
 function useChapterInfo() {
   const dispatch = useDispatch();
-  const { currentChapter, chapterList } = useSelector((state: RootState) => state.chapterInfo);
 
   function nextChapter() {
     dispatch(reduxNextChapter());
@@ -33,8 +31,6 @@ function useChapterInfo() {
     previousChapter,
     setChapterList,
     setChapter,
-    currentChapter: currentChapter,
-    chapterList,
   };
 }
 

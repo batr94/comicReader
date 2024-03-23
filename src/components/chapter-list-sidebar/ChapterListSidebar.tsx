@@ -7,9 +7,10 @@ import { useChapterListSidebar } from '.';
 import './ChapterListSidebar.css';
 
 const ChapterListSidebar = () => {
+  const { currentChapter, chapterList } = useSelector((state: RootState) => state.chapterInfo);
   const { isOpen } = useSelector((state: RootState) => state.chapterListSidebar);
   const { closeSidebar } = useChapterListSidebar();
-  const { chapterList, currentChapter, setChapter } = useChapterInfo();
+  const { setChapter } = useChapterInfo();
 
   return (
     <Sidebar isOpen={isOpen} onClose={closeSidebar} side="right" className='chapter-list-sidebar'>

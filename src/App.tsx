@@ -10,13 +10,10 @@ import useChapterInfo from './hooks/useChapterInfo';
 
 function App() {
   
-  const { 
-    setChapterList: setHookChapterList,
-    setChapter,
-  } = useChapterInfo();
+  const { setChapterList, setChapter } = useChapterInfo();
 
   useEffect(() => {
-    setHookChapterList(newChapters);
+    setChapterList(newChapters);
     setChapter(1);
   }, [])
 

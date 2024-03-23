@@ -1,16 +1,15 @@
+import { useSelector } from 'react-redux';
 import Sidebar from '../ui/Sidebar';
 import useMenu from './useMenu';
+import { RootState } from '../../store';
 import { FaHome } from "react-icons/fa";
 import { FaList } from "react-icons/fa";
 import { FaRegEnvelope } from "react-icons/fa6";
 import './Menu.css';
 
-type MenuProps = {
-  isOpen: boolean;
-}
-
-const Menu = ({ isOpen }: MenuProps) => {
+const Menu = () => {
   const { closeMenu } = useMenu();
+  const { isOpen } = useSelector((state: RootState) => state.menu);
 
   return (
     <Sidebar isOpen={isOpen} onClose={closeMenu}>

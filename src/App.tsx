@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Layout from './components/Layout/Layout.tsx';
-import PageView from './components/PageView/PageView';
+import PageView from './components/page-view/PageView.tsx';
 import Menu from './components/Menu';
 import PageNavigation from './components/page-navigation';
 import ChapterListSidebar from './components/chapter-list-sidebar';

@@ -19,10 +19,10 @@ const ChapterListSidebar = () => {
         { Object.entries(chapterList).map(([, chapter]) => (
           <li
             key={chapter.id}
-            className={clsx({
-              'chapter-list__item': true,
-              'chapter-list__item_active': currentChapter === chapter
-            })}
+            className={clsx(
+              'chapter-list__item',
+              currentChapter === chapter && 'chapter-list__item_active'
+            )}
             onClick={() => setChapter(chapter.id)}
           >
             <a  className='chapter-list__link'>{chapter.name}</a>

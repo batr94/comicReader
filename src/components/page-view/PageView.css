@@ -1,0 +1,27 @@
+.page-view {
+  display: flex;
+  justify-content: center;
+}
+
+.page-wrapper {
+  position: relative;
+}
+
+.page-wrapper__pagination {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.page {
+  display: none;
+  position: relative;
+}
+
+.page_visible {
+  display: block
+}

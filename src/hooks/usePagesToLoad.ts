@@ -8,7 +8,7 @@ export default function usePagesToLoad(
   const [pagesToLoad, setPagesToLoad] = useState<Set<string>>(new Set())
 
   useEffect(() => {
-    setPagesToLoad(new Set());
+    pagesToLoad.clear();
   }, [pagesSrcList])
 
   useEffect(() => {

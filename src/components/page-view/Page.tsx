@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useState, memo } from 'react'
+import { useState } from 'react'
 
 const Page = ({ src = '', show = false }: { src?: string, show?: boolean}) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,9 +19,9 @@ const Page = ({ src = '', show = false }: { src?: string, show?: boolean}) => {
         style={{ display: isLoaded ? 'block' : 'none', maxWidth: '900px'}}
         onLoad={onImageLoad}
       />
-      <p style={{ display: isLoaded ? 'none' : 'block'}}>Загрузка...</p>
+      { show && !isLoaded && <div className='loader'></div> }
     </div>
   )
 }
 
-export default memo(Page);
+export default Page;

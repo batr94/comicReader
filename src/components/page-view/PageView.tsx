@@ -1,13 +1,15 @@
-import Page from './Page';
 import { useSelector } from 'react-redux';
+import Page from './Page';
 import { RootState } from '../../store';
-import usePagesToLoad from '../../hooks/usePagesToLoad';
+import usePagesToRender from './usePagesToRender';
 import usePageInfo from '../../hooks/usePageInfo';
 import './PageView.css';
 
 export default function PageView() {
   const { currentPage, pageList } = useSelector((state: RootState) => state.pageInfo);
-  const { isPageShouldToBeLoad } = usePagesToLoad(currentPage, pageList);
+  const cachedPages = usePagesToRender(currentPage, pageList);
+  console.log(cachedPages);
+
   const { nextPage, previousPage } = usePageInfo();
 
   return (
@@ -16,9 +18,9 @@ export default function PageView() {
         { 
           pageList.map((link, index) => (
             <Page
-              src={isPageShouldToBeLoad(link) ? link : ''}
+              src={ cachedPages.get(link)?.complete ? link : null}
               show={index === currentPage}
-              key={index}
+              key={link}
             />
           ))
         }

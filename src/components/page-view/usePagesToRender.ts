@@ -1,31 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function usePagesToRender(
   currentPage: number,
   pageList: string[],
   cachedPagesAmount: number = 2
 ) {
-  const [loadedImages, setLoadedImages] = useState<Map<string, HTMLImageElement>>(new Map());
+  const [loadedImages, setLoadedImages] = useState<Map<string, string>>(new Map());
+  const { current: fetchQueue } = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    loadedImages.forEach((image) => image.src = '')
     loadedImages.clear();
+    fetchQueue.clear();
   }, [pageList]);
 
   useEffect(() => {
     requestImagesByPage(currentPage);
   }, [currentPage, pageList]);
-
-  function createImage(src: string) {
-    const image = new Image();
-    image.addEventListener('load', () => {
-      if (loadedImages.has(src)) {
-        setLoadedImages(new Map([ ...loadedImages ]))
-      }
-    })
-
-    return image;
-  }
 
   function requestImagesByPage(page: number) {
     if (loadedImages.size === pageList.length) {
@@ -36,14 +26,20 @@ function usePagesToRender(
     const maxPage = Math.min(page + cachedPagesAmount, pageList.length - 1);
 
     while(index <= maxPage) {
-      const src = pageList[index];
-      if (!loadedImages.has(src)) {
-        const image = createImage(src);
-        loadedImages.set(src, image);
-        image.src = src;
+      const url = pageList[index];
+      if (!loadedImages.has(url) && !fetchQueue.has(url)) {
+        fetchImageBlobUrl(url);
       }
       index++;
     }
+  }
+
+  async function fetchImageBlobUrl(imageUrl: string): Promise<void> {
+    fetchQueue.add(imageUrl);
+    const result = await fetch(imageUrl);
+    fetchQueue.delete(imageUrl);
+    const blob = await result.blob();
+    setLoadedImages((loadedImages) => new Map([ ...loadedImages, [ imageUrl, URL.createObjectURL(blob) ]]));
   }
 
   return loadedImages;
